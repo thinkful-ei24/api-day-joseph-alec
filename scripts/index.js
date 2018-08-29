@@ -1,4 +1,4 @@
-/* global shoppingList, store */
+/* global shoppingList, store Api $ */
 
 $(document).ready(function() {
   shoppingList.bindEventListeners();
