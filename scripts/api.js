@@ -29,9 +29,21 @@ const Api = (function(){
     });
   };
 
+ const deleteItem = function(id, callback){
+   const stringData = JSON.stringify({id: id});
+   $.ajax({
+     url: `${BASE_URL}/items/${id}`,
+     method: 'DELETE',
+     contentType: 'application/json',
+     data: stringData,
+     success: callback
+   });
+ }
+
   return {
     getItems,
     createItem,
-    updateItem
+    updateItem,
+    deleteItem
   };
 }());
