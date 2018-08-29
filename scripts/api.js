@@ -13,14 +13,24 @@ const Api = (function(){
       contentType: 'application/json',
       data: newItem,
       success: callback
-    }
-      
+    })
+  };
 
-    )
+  const updateItem = function(id, updateData, callback){
+    const stringData = JSON.stringify(updateData);
+    console.log(updateData);
+    $.ajax({
+      url: `${BASE_URL}/items/${id}`,
+      method: 'PATCH',
+      contentType: 'application/json',
+      data: stringData,
+      success: callback
+    })
   };
 
   return {
     getItems,
-    createItem
+    createItem,
+    updateItem
   }
 }());
