@@ -1,4 +1,4 @@
-/* global store */
+/* global store Api*/
 
 // eslint-disable-next-line no-unused-vars
 const shoppingList = (function(){
@@ -33,7 +33,6 @@ const shoppingList = (function(){
     return items.join('');
   }
 
-
   function render() {
     // Filter item list if store prop is true by item.checked === false
     let items = store.items;
@@ -61,7 +60,6 @@ const shoppingList = (function(){
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
       Api.createItem(newItemName, (newItem)=>{
-        console.log("this is the new item: " + newItem);
         store.addItem(newItem);
         render();
       });
@@ -77,7 +75,10 @@ const shoppingList = (function(){
   function handleItemCheckClicked() {
     $('.js-shopping-list').on('click', '.js-item-toggle', event => {
       const id = getItemIdFromElement(event.currentTarget);
-      store.findAndToggleChecked(id);
+      const item = store.findById(id);
+      item.checked = !item.checked;
+      Api.updateItem(id, {checked: !item.checked} );
+      store.findAndUpdate(id, item);
       render();
     });
   }
@@ -99,7 +100,8 @@ const shoppingList = (function(){
       event.preventDefault();
       const id = getItemIdFromElement(event.currentTarget);
       const itemName = $(event.currentTarget).find('.shopping-item').val();
-      store.findAndUpdateName(id, itemName);
+      Api.updateItem(id, {name: itemName});
+      store.findAndUpdate(id, {name: itemName});
       render();
     });
   }

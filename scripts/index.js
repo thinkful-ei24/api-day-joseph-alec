@@ -4,17 +4,7 @@ $(document).ready(function() {
   shoppingList.bindEventListeners();
   shoppingList.render();
   Api.getItems((items) => {
-  const item = items[0];
-
-  Api.updateItem(item.id, { name: 'foobar' }, () => {
-    console.log('updated!');
+    items.forEach((item) => store.addItem(item));
+    shoppingList.render();
   });
 });
-
-});
-
-/*
-Api.getItems=(items)=>{
-
-}
-*/
